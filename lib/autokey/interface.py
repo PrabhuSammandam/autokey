@@ -26,6 +26,8 @@ import queue
 import subprocess
 import time
 
+import Xlib.error
+
 if typing.TYPE_CHECKING:
     from autokey.iomediator import IoMediator
 from autokey import model
@@ -910,6 +912,8 @@ class XInterfaceBase(threading.Thread):
 
                 if self.shutdown:
                     break
+            except Xlib.error.ConnectionClosedError:
+                return
             except Exception:
                 logger.exception("__flushEvents: Some exception occured:")
                 pass
