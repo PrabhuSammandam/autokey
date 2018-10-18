@@ -913,6 +913,9 @@ class XInterfaceBase(threading.Thread):
                 if self.shutdown:
                     break
             except Xlib.error.ConnectionClosedError:
+                # On some systems, logging out does not properly exit autokey. In this case, ConnectionClosedError is
+                # risen. Call shutdown in the Application.
+                self.app.exec_in_main(self.app.shutdown)
                 return
             except Exception:
                 logger.exception("__flushEvents: Some exception occured:")
