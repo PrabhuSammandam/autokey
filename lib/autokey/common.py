@@ -40,7 +40,7 @@ LOG_FORMAT = "%(asctime)s %(levelname)s - %(name)s - %(message)s"
 
 APP_NAME = "autokey"
 CATALOG = ""
-VERSION = "0.95.4"
+VERSION = "0.95.4+bugfix1_issue_225_and_226"
 HOMEPAGE = "https://github.com/autokey/autokey"
 AUTHOR = 'Chris Dekter'
 AUTHOR_EMAIL = 'cdekter@gmail.com'
