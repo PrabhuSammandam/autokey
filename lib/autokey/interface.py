@@ -158,8 +158,12 @@ else:
         @text.setter
         def text(self, new_content: str):
             Gdk.threads_enter()
-            self._clipboard.set_text(new_content, -1)
-            Gdk.threads_leave()
+            try:
+                # This call might fail and raise an Exception.
+                # If it does, make sure to release the mutex and not deadlock AutoKey.
+                self._clipboard.set_text(new_content, -1)
+            finally:
+                Gdk.threads_leave()
 
         @property
         def selection(self):
@@ -171,8 +175,12 @@ else:
         @selection.setter
         def selection(self, new_content: str):
             Gdk.threads_enter()
-            self._selection.set_text(new_content, -1)
-            Gdk.threads_leave()
+            try:
+                # This call might fail and raise an Exception.
+                # If it does, make sure to release the mutex and not deadlock AutoKey.
+                self._selection.set_text(new_content, -1)
+            finally:
+                Gdk.threads_leave()
 
 
 class XInterfaceBase(threading.Thread):
